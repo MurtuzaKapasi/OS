@@ -1,29 +1,26 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
 const int disk_size = 200;
 
-class Node {
+class Node
+{
 public:
-    int distance = 0; // represent difference between head position and track number
+    int distance = 0;      // represent difference between head position and track number
     bool accessed = false; // true if track has been accessed
 };
 
-void FCFS(int arr[], int head, int n) {
+void FCFS(int arr[], int head, int n)
+{
     int seek_count = 0;
     int distance, cur_track;
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++)
+    {
         cur_track = arr[i];
-
-        // calculate absolute distance
         distance = abs(cur_track - head);
-
-        // increase the total count
         seek_count += distance;
-
-        // accessed track is now new head
         head = cur_track;
     }
 
@@ -31,22 +28,23 @@ void FCFS(int arr[], int head, int n) {
 
     // Seek sequence would be the same as request array sequence
     cout << "Seek Sequence is" << endl;
-
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++)
         cout << arr[i] << endl;
-    }
 }
 
-void calculateDifference(int queue[], int head, Node diff[], int n) {
+void calculateDifference(int queue[], int head, Node diff[], int n)
+{
     for (int i = 0; i < n; i++)
         diff[i].distance = abs(queue[i] - head);
 }
 
-int findMin(Node diff[], int n) {
+int findMin(Node diff[], int n)
+{
     int index = -1, minimum = INT_MAX;
-
-    for (int i = 0; i < n; i++) {
-        if (!diff[i].accessed && minimum > diff[i].distance) {
+    for (int i = 0; i < n; i++)
+    {
+        if (!diff[i].accessed && minimum > diff[i].distance)
+        {
             minimum = diff[i].distance;
             index = i;
         }
@@ -54,31 +52,22 @@ int findMin(Node diff[], int n) {
     return index;
 }
 
-void shortestSeekTimeFirst(int request[], int head, int n) {
+void shortestSeekTimeFirst(int request[], int head, int n)
+{
     if (n == 0)
         return;
 
-    // create array of objects of class node
     Node diff[n];
-
-    // count total number of seek operation
     int seek_count = 0;
-
-    // stores sequence in which disk access is done
     int seek_sequence[n + 1];
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++)
+    {
         seek_sequence[i] = head;
         calculateDifference(request, head, diff, n);
-
         int index = findMin(diff, n);
-
         diff[index].accessed = true;
-
-        // increase the total count
         seek_count += diff[index].distance;
-
-        // accessed track is now new head
         head = request[index];
     }
 
@@ -93,7 +82,8 @@ void shortestSeekTimeFirst(int request[], int head, int n) {
         cout << seek_sequence[i] << endl;
 }
 
-void SCANDisk(int arr[], int head, string direction, int n) {
+void SCANDisk(int arr[], int head, string direction, int n)
+{
     int seek_count = 0;
     int distance, cur_track;
     vector<int> left, right, seek_sequence;
@@ -104,7 +94,8 @@ void SCANDisk(int arr[], int head, string direction, int n) {
     else if (direction == "right")
         right.push_back(disk_size - 1);
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++)
+    {
         if (arr[i] < head)
             left.push_back(arr[i]);
         if (arr[i] > head)
@@ -117,53 +108,45 @@ void SCANDisk(int arr[], int head, string direction, int n) {
 
     // run the while loop two times. one by one scanning right and left of the head
     int run = 2;
-    while (run-- > 0) {
-        if (direction == "left") {
-            for (int i = left.size() - 1; i >= 0; i--) {
+    while (run-- > 0)
+    {
+        if (direction == "left")
+        {
+            for (int i = left.size() - 1; i >= 0; i--)
+            {
                 cur_track = left[i];
-
-                // appending current track to seek sequence
                 seek_sequence.push_back(cur_track);
-
-                // calculate absolute distance
                 distance = abs(cur_track - head);
-
-                // increase the total count
                 seek_count += distance;
-
-                // accessed track is now the new head
                 head = cur_track;
             }
             direction = "right";
-        } else if (direction == "right") {
-            for (int i = 0; i < right.size(); i++) {
+        }
+        else if (direction == "right")
+        {
+            for (int i = 0; i < right.size(); i++)
+            {
                 cur_track = right[i];
-
-                // appending current track to seek sequence
                 seek_sequence.push_back(cur_track);
-
-                // calculate absolute distance
                 distance = abs(cur_track - head);
-
-                // increase the total count
                 seek_count += distance;
-
-                // accessed track is now new head
                 head = cur_track;
             }
             direction = "left";
         }
     }
 
-    cout << "Total number of seek operations = " << seek_count << endl;
-    cout << "Seek Sequence is" << endl;
+    cout<<"Total number of seek operations = " << seek_count << endl;
+    cout<< "Seek Sequence is" << endl;
 
-    for (int i = 0; i < seek_sequence.size(); i++) {
+    for (int i = 0; i < seek_sequence.size(); i++)
+    {
         cout << seek_sequence[i] << endl;
     }
 }
 
-void CSCAN(int arr[], int head, int n) {
+void CSCAN(int arr[], int head, int n)
+{
     int seek_count = 0;
     int distance, cur_track;
 
@@ -173,7 +156,8 @@ void CSCAN(int arr[], int head, int n) {
     left.push_back(0);
     right.push_back(disk_size - 1);
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++)
+    {
         if (arr[i] < head)
             left.push_back(arr[i]);
         if (arr[i] > head)
@@ -185,7 +169,8 @@ void CSCAN(int arr[], int head, int n) {
     sort(right.begin(), right.end());
 
     // First service the requests on the right side of the head.
-    for (int i = 0; i < right.size(); i++) {
+    for (int i = 0; i < right.size(); i++)
+    {
         cur_track = right[i];
         seek_sequence.push_back(cur_track);
         distance = abs(cur_track - head);
@@ -200,7 +185,8 @@ void CSCAN(int arr[], int head, int n) {
     seek_count += (disk_size - 1);
 
     // Now service the requests again which are left.
-    for (int i = 0; i < left.size(); i++) {
+    for (int i = 0; i < left.size(); i++)
+    {
         cur_track = left[i];
         seek_sequence.push_back(cur_track);
         distance = abs(cur_track - head);
@@ -211,13 +197,13 @@ void CSCAN(int arr[], int head, int n) {
     cout << "Total number of seek operations = " << seek_count << endl;
     cout << "Seek Sequence is" << endl;
 
-    for (int i = 0; i < seek_sequence.size(); i++) {
+    for (int i = 0; i < seek_sequence.size(); i++)
         cout << seek_sequence[i] << endl;
-    }
 }
 
-int main() {
-    int arr[] = { 98, 183, 37, 122, 14, 124, 65, 67 };
+int main()
+{
+    int arr[] = {98, 183, 37, 122, 14, 124, 65, 67};
     int head = 53;
     int n = sizeof(arr) / sizeof(arr[0]);
 
