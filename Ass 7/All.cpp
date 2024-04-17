@@ -1,8 +1,7 @@
 #include<bits/stdc++.h>
-
 using namespace std;
 
-// Function to implement FIFO page replacement algorithm
+//Function to implement FIFO page replacement algorithm
 int FIFO(const vector<int> &pages, int capacity)
 {
     queue<int> pageQueue;       // Queue to store pages in memory
@@ -56,6 +55,7 @@ int LRU(const vector<int> &pages, int capacity)
     }
     return pageFaults;
 }
+
 // Optimal Page Replacement Algorithm
 int Optimal(vector<int> pages,  int n, int capacity) {
     unordered_map<int, int> pageMap;

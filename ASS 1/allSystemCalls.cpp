@@ -30,11 +30,7 @@ void performSystemCalls() {
         if (WIFSIGNALED(status)) {
             cout << "The process ended with kill -" << WTERMSIG(status) << "." << endl;
         }
-    } else {
-        cerr << "Error while forking" << endl;
-        exit(EXIT_FAILURE);
-    }
-
+    } 
     exit(0);
 }
 
