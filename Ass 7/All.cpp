@@ -99,6 +99,8 @@ int main()
     int n = pages.size();
 
     int capacity = 4;
+    int pageFaults;
+    
     // cout << "Enter the memory capacity: ";
     // cin >> capacity;
 
@@ -109,7 +111,6 @@ int main()
     //      << "Enter your choice: ";
     // cin >> choice;
 
-    int pageFaults;
     // switch (choice) {
     //     case 1:
     //         pageFaults = FIFO(pages, capacity);

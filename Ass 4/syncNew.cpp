@@ -3,9 +3,11 @@
 #include <mutex>
 #include <chrono>
 #include <vector>
+using namespace std;
 
-std::mutex x, y;
-std::vector<std::thread> writerthreads, readerthreads;
+
+mutex x, db;
+vector<thread> writerthreads, readerthreads;
 int readercount = 0;
 
 void reader()
@@ -13,47 +15,46 @@ void reader()
     x.lock();
     readercount++;
     if (readercount == 1)
-        y.lock();
+        db.lock();
     x.unlock();
 
-    std::cout << readercount << " reader is inside" << std::endl;
-    std::this_thread::sleep_for(std::chrono::milliseconds(300)); // Simulate reading
+    cout << readercount << " reader is inside" << endl;
+    this_thread::sleep_for(chrono::milliseconds(300)); // Simulate reading
 
     x.lock();
     readercount--;
     if (readercount == 0)
-        y.unlock();
+        db.unlock();
     x.unlock();
 
-    std::cout << readercount + 1 << " Reader is leaving" << std::endl;
+    cout << readercount + 1 << " Reader is leaving" << endl;
 }
 
 void writer()
 {
-    std::cout << "Writer is trying to enter" << std::endl;
-    y.lock();
-    std::cout << "Writer has entered" << std::endl;
-    y.unlock();
-    std::cout << "Writer is leaving" << std::endl;
+    cout << "Writer is trying to enter" << endl;
+    db.lock();
+    cout << "Writer has entered" << endl;
+    db.unlock();
+    cout << "Writer is leaving" << endl;
 }
 
 int main()
 {
-    int n2, i;
-    std::cout << "Enter the number of readers:";
-    std::cin >> n2;
-    std::cout << std::endl;
+    int n, i;
+    cout << "Enter the number of readers:";
+    cin >> n;
     
-    writerthreads.reserve(n2);
-    readerthreads.reserve(n2);
+    writerthreads.reserve(n);
+    readerthreads.reserve(n);
 
-    for (i = 0; i < n2; i++)
+    for (i = 0; i < n; i++)
     {
         readerthreads.emplace_back(reader);
         writerthreads.emplace_back(writer);
     }
 
-    for (i = 0; i < n2; i++)
+    for (i = 0; i < n; i++)
     {
         readerthreads[i].join();
         writerthreads[i].join();
