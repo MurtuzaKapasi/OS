@@ -13,7 +13,7 @@
             "compilerPath": "C:\\MinGW\\bin\\gcc.exe",
             "cStandard": "c11",
             "cppStandard": "gnu++14",
-            "intelliSenseMode": "windows-clang-x86",
+            "intelliSenseMode": "windows-gcc-x86",
             "compilerPathInCppPropertiesJson": "C:\\MinGW\\bin\\gcc.exe",
             "mergeConfigurations": false,
             "browse": {

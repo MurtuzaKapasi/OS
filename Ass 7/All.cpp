@@ -95,7 +95,7 @@ int Optimal(vector<int> pages,  int n, int capacity) {
 
 int main()
 {
-    vector<int> pages = {7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2};
+    vector<int> pages = {7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2,1,2,0,1,7,0,1};
     int n = pages.size();
 
     int capacity = 4;

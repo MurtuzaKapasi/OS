@@ -74,20 +74,32 @@ int Optimal(int pages[], int n, int capacity)
         if (pageMap.find(pages[i]) == pageMap.end())
         {
             faults++;
-            if (pageVector.size() == capacity)
+            if (pageMap.size() == capacity)
             { // if capacity is full
                 int index = 0, farthest = -1;
                 for (int j = 0; j < capacity; j++)
                 {
-                    if (pageMap.find(pageVector[j]) == pageMap.end())
+                    int farthestIndex = -1;
+                    for (int k = i + 1; k < n; k++)
+                    {
+                        if (pages[k] == pageVector[j])
+                        {
+                            farthestIndex = k;
+                            break;
+                        }
+                    }
+                    if (farthestIndex == -1)
                     {
                         index = j;
                         break;
                     }
-                    else if (pageMap[pageVector[j]] > farthest)
+                    else
                     {
-                        farthest = pageMap[pageVector[j]];
-                        index = j;
+                        if (farthestIndex > farthest)
+                        {
+                            farthest = farthestIndex;
+                            index = j;
+                        }
                     }
                 }
                 pageMap.erase(pageVector[index]);
@@ -112,7 +124,7 @@ int Optimal(int pages[], int n, int capacity)
 
 int main()
 {
-    int pages[] = {7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2};
+    int pages[] = {7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2,1,2,0,1,7,0,1};
     int n = sizeof(pages) / sizeof(pages[0]);
     int capacity = 4;
 
