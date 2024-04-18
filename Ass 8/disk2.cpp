@@ -4,13 +4,6 @@ using namespace std;
 
 const int disk_size = 200;
 
-class Node
-{
-public:
-    int distance = 0;      // represent difference between head position and track number
-    bool accessed = false; // true if track has been accessed
-};
-
 void FCFS(int arr[], int head, int n)
 {
     int seek_count = 0;
@@ -32,53 +25,45 @@ void FCFS(int arr[], int head, int n)
         cout << arr[i] << endl;
 }
 
-void calculateDifference(int queue[], int head, Node diff[], int n)
-{
-    for (int i = 0; i < n; i++)
-        diff[i].distance = abs(queue[i] - head);
-}
-
-int findMin(Node diff[], int n)
-{
-    int index = -1, minimum = INT_MAX;
-    for (int i = 0; i < n; i++)
-    {
-        if (!diff[i].accessed && minimum > diff[i].distance)
-        {
-            minimum = diff[i].distance;
-            index = i;
-        }
-    }
-    return index;
-}
-
 void shortestSeekTimeFirst(int request[], int head, int n)
 {
+    vector<int> req(n) ;
+    vector<int> seek_sequence;
+
     if (n == 0)
         return;
+    for(int i=0 ; i<n ; i++)
+        req[i] = request[i];
 
-    Node diff[n];
-    int seek_count = 0;
-    int seek_sequence[n + 1];
+    sort(req.begin(),req.end());
 
-    for (int i = 0; i < n; i++)
-    {
-        seek_sequence[i] = head;
-        calculateDifference(request, head, diff, n);
-        int index = findMin(diff, n);
-        diff[index].accessed = true;
-        seek_count += diff[index].distance;
-        head = request[index];
+    int seek_dist = 0;
+    int currentHead = head;
+    int index = -1 , closestReq =0 ;
+
+    while(!req.empty()){
+        closestReq = req.front();
+        index = 0;
+        int minDiff = abs(closestReq - currentHead);
+        for(int i=1 ; i<req.size() ; i++){
+            int diff = abs(req[i] - currentHead);
+            if(diff < minDiff){
+                minDiff = diff;
+                closestReq = req[i];
+                index = i;
+            }
+        }
+
+        seek_sequence.push_back(closestReq);
+        currentHead = closestReq;
+        seek_dist += minDiff;
+        req.erase(req.begin() + index);
     }
-
-    // for last accessed track
-    seek_sequence[n] = head;
-
-    cout << "Total number of seek operations = " << seek_count << endl;
-    cout << "Seek Sequence is" << endl;
+   
+cout<<"Total number of seek operations = "<<seek_dist<<endl;
 
     // print the sequence
-    for (int i = 0; i <= n; i++)
+    for (int i = 0; i < n; i++)
         cout << seek_sequence[i] << endl;
 }
 
