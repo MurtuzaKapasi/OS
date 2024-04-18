@@ -88,18 +88,15 @@ int Optimal(int pages[], int n, int capacity)
                             break;
                         }
                     }
-                    if (farthestIndex == -1)
+                    if (farthestIndex == -1) // page is absent
                     {
                         index = j;
                         break;
                     }
-                    else
+                    else if (farthestIndex > farthest)
                     {
-                        if (farthestIndex > farthest)
-                        {
-                            farthest = farthestIndex;
-                            index = j;
-                        }
+                        farthest = farthestIndex;
+                        index = j;
                     }
                 }
                 pageMap.erase(pageVector[index]);
@@ -124,7 +121,7 @@ int Optimal(int pages[], int n, int capacity)
 
 int main()
 {
-    int pages[] = {7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2,1,2,0,1,7,0,1};
+    int pages[] = {7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1};
     int n = sizeof(pages) / sizeof(pages[0]);
     int capacity = 4;
 

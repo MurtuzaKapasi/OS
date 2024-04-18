@@ -48,7 +48,7 @@ int main()
                     min = p[i].bt;
                     index = i;
                 }
-
+                
                 if (p[i].bt == min){
                     if (p[i].at < p[index].at){
                         min = p[i].bt;

@@ -39,8 +39,6 @@ int main()
 
     sort(p,p+n,compareArrival);
 
-
-
     // for finding completion time
     int start=0;
     for(int i=0 ; i<n ; i++){
