@@ -121,7 +121,7 @@ int Optimal(int pages[], int n, int capacity)
 
 int main()
 {
-    int pages[] = {7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1};
+    int pages[] = {7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0};
     int n = sizeof(pages) / sizeof(pages[0]);
     int capacity = 4;
 

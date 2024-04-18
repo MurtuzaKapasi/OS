@@ -12,7 +12,7 @@ void firstFit(int process[], int block[], int p, int b)
     }
     for (int i = 0; i < p; i++)
     {
-        allocatedProcess[i] = -1;
+        allocatedProcess[i] = -1;           //just a flag
     }
 
     for (int i = 0; i < p; i++)
@@ -131,6 +131,7 @@ void worstFit(int process[], int block[], int p, int b)
             cout << "Not Allocated\n";
     }
 }
+
 void nextFit(int process[], int block[], int p, int b)
 {
     int allocatedProcess[p], allocatedBlock[b], memoryCopy[b];
@@ -168,15 +169,12 @@ void nextFit(int process[], int block[], int p, int b)
     {
         cout << "P" << i << "\t" << process[i] << "\t\t";
         if (allocatedProcess[i] != -1)
-        {
             cout << "B" << allocatedProcess[i] << "\t\t" << block[allocatedProcess[i]] << "\n";
-        }
         else
-        {
             cout << "Not Allocated\n";
-        }
     }
 }
+
 int main()
 {
     /*
