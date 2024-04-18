@@ -111,19 +111,19 @@ return seekTime;
 }
 
 int main() {
-  int size;
   cout << "Enter the number of requests: ";
-  cin >> size;
-  int arr[size];
+  // cin >> size;
+    int arr[] = {98, 183, 37, 122, 14, 124, 65, 67};
+  int size = sizeof(arr) / sizeof(arr[0]);
   cout << "Enter the requests: ";
-  for (int i = 0; i < size; ++i) {
-    cin >> arr[i];
-  }
-  int head, maxCylinder;
-  cout << "Enter the initial head position: ";
-  cin >> head;
-  cout << "Enter the maximum cylinder size: ";
-  cin >> maxCylinder;
+  // for (int i = 0; i < size; ++i) {
+    // cin >> arr[i];
+  // }
+  int head = 53 , maxCylinder = 200;
+  // cout << "Enter the initial head position: ";
+  // cin >> head;
+  // cout << "Enter the maximum cylinder size: ";
+  // cin >> maxCylinder;
   vector<int> requests(arr, arr + size);
   vector<int> sequence;
   cout << "Initial position of head: " << head << endl << endl;

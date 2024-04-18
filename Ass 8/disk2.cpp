@@ -22,7 +22,7 @@ void FCFS(int arr[], int head, int n)
     // Seek sequence would be the same as request array sequence
     cout << "Seek Sequence is" << endl;
     for (int i = 0; i < n; i++)
-        cout << arr[i] << endl;
+        cout << arr[i] << " ";
 }
 
 void shortestSeekTimeFirst(int request[], int head, int n)
@@ -64,7 +64,7 @@ cout<<"Total number of seek operations = "<<seek_dist<<endl;
 
     // print the sequence
     for (int i = 0; i < n; i++)
-        cout << seek_sequence[i] << endl;
+       cout << seek_sequence[i] << " "; 
 }
 
 void SCANDisk(int arr[], int head, string direction, int n)
@@ -94,7 +94,7 @@ void SCANDisk(int arr[], int head, string direction, int n)
     }
 
     seek_sequence.push_back(disk_size - 1);
-    seek_dist+= abs(currentHead - disk_size - 1);
+    seek_dist+= abs(currentHead - (disk_size - 1));
     currentHead = disk_size -1;
 
     //traversing to left
@@ -108,7 +108,7 @@ void SCANDisk(int arr[], int head, string direction, int n)
 
     // print the sequence
     for (int i = 0; i < seek_sequence.size(); i++)
-        cout << seek_sequence[i] << endl;
+       cout << seek_sequence[i] << " "; 
 
 }
 
@@ -138,7 +138,7 @@ void CSCAN(int arr[], int head, int n)
     }
 
     seek_sequence.push_back(disk_size - 1);
-    seek_count += abs(head - disk_size - 1);
+    seek_count += abs(head - (disk_size - 1));
     head = disk_size - 1;
 
     seek_sequence.push_back(0);
@@ -154,7 +154,7 @@ void CSCAN(int arr[], int head, int n)
     cout<<"Total number of seek operations = "<<seek_count<<endl;
 
     for (int i = 0; i < seek_sequence.size(); i++)
-        cout << seek_sequence[i] << endl;
+        cout << seek_sequence[i] << " ";
 }
 
 int main()
