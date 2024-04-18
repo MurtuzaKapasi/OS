@@ -69,65 +69,47 @@ cout<<"Total number of seek operations = "<<seek_dist<<endl;
 
 void SCANDisk(int arr[], int head, string direction, int n)
 {
-    int seek_count = 0;
-    int distance, cur_track;
-    vector<int> left, right, seek_sequence;
-
-    // appending end values which has to be visited before reversing the direction
-    if (direction == "left")
-        left.push_back(0);
-    else if (direction == "right")
-        right.push_back(disk_size - 1);
+    int seek_dist = 0;
+    int distance, cur_track , index = -1;
+    vector<int> req , seek_sequence;
 
     for (int i = 0; i < n; i++)
-    {
-        if (arr[i] < head)
-            left.push_back(arr[i]);
-        if (arr[i] > head)
-            right.push_back(arr[i]);
-    }
+        req.push_back(arr[i]);
 
-    // sorting left and right vectors
-    sort(left.begin(), left.end());
-    sort(right.begin(), right.end());
-
-    // run the while loop two times. one by one scanning right and left of the head
-    int run = 2;
-    while (run-- > 0)
-    {
-        if (direction == "left")
-        {
-            for (int i = left.size() - 1; i >= 0; i--)
-            {
-                cur_track = left[i];
-                seek_sequence.push_back(cur_track);
-                distance = abs(cur_track - head);
-                seek_count += distance;
-                head = cur_track;
-            }
-            direction = "right";
-        }
-        else if (direction == "right")
-        {
-            for (int i = 0; i < right.size(); i++)
-            {
-                cur_track = right[i];
-                seek_sequence.push_back(cur_track);
-                distance = abs(cur_track - head);
-                seek_count += distance;
-                head = cur_track;
-            }
-            direction = "left";
+    sort(req.begin(), req.end());
+    int currentHead = head;
+    //getting index just greater than head
+    for(int i=0 ; i< n ; i++){
+        if(req[i] > head){
+            index = i;
+            break;
         }
     }
 
-    cout<<"Total number of seek operations = " << seek_count << endl;
-    cout<< "Seek Sequence is" << endl;
+    //traversing right upto end
+    for(int i=index ; i<n ; i++){
+        seek_sequence.push_back(req[i]);
+        seek_dist += abs(currentHead - req[i]);
+        currentHead  = req[i];
+    }
 
+    seek_sequence.push_back(disk_size - 1);
+    seek_dist+= abs(currentHead - disk_size - 1);
+    currentHead = disk_size -1;
+
+    //traversing to left
+    for(int i= index-1 ; i>=0 ; i--){
+        seek_sequence.push_back(req[i]);
+        seek_dist += abs(currentHead - req[i]);
+        currentHead = req[i];
+    }
+
+    cout<<"Total number of seek operations = "<<seek_dist<<endl;
+
+    // print the sequence
     for (int i = 0; i < seek_sequence.size(); i++)
-    {
         cout << seek_sequence[i] << endl;
-    }
+
 }
 
 void CSCAN(int arr[], int head, int n)
@@ -135,52 +117,41 @@ void CSCAN(int arr[], int head, int n)
     int seek_count = 0;
     int distance, cur_track;
 
-    vector<int> left, right, seek_sequence;
+    vector<int>  seek_sequence , req;
+    for(int i=0 ; i<n ; i++)
+        req.push_back(arr[i]);
 
-    // Appending end values which has to be visited before reversing the direction
-    left.push_back(0);
-    right.push_back(disk_size - 1);
+    sort(req.begin(),req.end());
 
-    for (int i = 0; i < n; i++)
-    {
-        if (arr[i] < head)
-            left.push_back(arr[i]);
-        if (arr[i] > head)
-            right.push_back(arr[i]);
+    int index = 0;
+    for(int i=0 ; i<n ; i++){
+        if(req[i] > head){
+            index = i;
+            break;
+        }
     }
 
-    // Sorting left and right vectors
-    sort(left.begin(), left.end());
-    sort(right.begin(), right.end());
-
-    // First service the requests on the right side of the head.
-    for (int i = 0; i < right.size(); i++)
-    {
-        cur_track = right[i];
-        seek_sequence.push_back(cur_track);
-        distance = abs(cur_track - head);
-        seek_count += distance;
-        head = cur_track;
+    for(int i=index ; i<n ; i++){
+        seek_sequence.push_back(req[i]);
+        seek_count += abs(head - req[i]);
+        head = req[i];
     }
 
-    // Once reached the right end jump to the beginning.
+    seek_sequence.push_back(disk_size - 1);
+    seek_count += abs(head - disk_size - 1);
+    head = disk_size - 1;
+
+    seek_sequence.push_back(0);
+    seek_count += abs(head - 0);
     head = 0;
 
-    // Adding seek count for head returning from disk_size - 1 to 0
-    seek_count += (disk_size - 1);
-
-    // Now service the requests again which are left.
-    for (int i = 0; i < left.size(); i++)
-    {
-        cur_track = left[i];
-        seek_sequence.push_back(cur_track);
-        distance = abs(cur_track - head);
-        seek_count += distance;
-        head = cur_track;
+    for(int i=0 ; i<index; i++){
+        seek_sequence.push_back(req[i]);
+        seek_count += abs(head - req[i]);
+        head = req[i];
     }
 
-    cout << "Total number of seek operations = " << seek_count << endl;
-    cout << "Seek Sequence is" << endl;
+    cout<<"Total number of seek operations = "<<seek_count<<endl;
 
     for (int i = 0; i < seek_sequence.size(); i++)
         cout << seek_sequence[i] << endl;
