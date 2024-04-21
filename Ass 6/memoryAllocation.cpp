@@ -175,43 +175,104 @@ void nextFit(int process[], int block[], int p, int b)
     }
 }
 
+// int main()
+// {
+//      int p, b;
+//      cout << "Enter no. of processes: ";
+//      cin >> p;
+//      cout << "Enter no. of blocks: ";
+//      cin >> b;
+
+//      int process[p], block[b];
+//      cout << "Enter process size: ";
+//      for (int i = 0; i < p; i++)
+//      {
+//          cin >> process[i];
+//      }
+
+//      cout << "Enter blocks size: ";
+//      for (int i = 0; i < b; i++)
+//      {
+//          cin >> block[i];
+//      }
+ 
+
+//     // int process[] = {100, 500, 200, 300, 600};
+//     // int block[] = {200, 400, 300, 250, 150};
+//     // int p = sizeof(process) / sizeof(process[0]);
+//     // int b = sizeof(block) / sizeof(block[0]);
+
+//     cout << "First fit allocation\n";
+//     firstFit(process, block, p, b);
+
+//     cout << "Best Fit Allocation\n";
+//     bestFit(process, block, p, b);
+
+//     cout << "Worst Fit Allocation\n";
+//     worstFit(process, block, p, b);
+
+//     cout << "Next Fit Allocation\n";
+//     nextFit(process, block, p, b);
+// }
+
 int main()
 {
-    /*
-     int p, b;
-     cout << "Enter no. of processes: ";
-     cin >> p;
-     cout << "Enter no. of blocks: ";
-     cin >> b;
+    int p, b;
+    cout << "Enter no. of processes: ";
+    cin >> p;
+    cout << "Enter no. of blocks: ";
+    cin >> b;
 
-     int process[p], block[b];
-     cout << "Enter process size: ";
-     for (int i = 0; i < p; i++)
-     {
-         cin >> process[i];
-     }
+    int process[p], block[b];
+    cout << "Enter process size: ";
+    for (int i = 0; i < p; i++)
+    {
+        cin >> process[i];
+    }
 
-     cout << "Enter blocks size: ";
-     for (int i = 0; i < b; i++)
-     {
-         cin >> block[i];
-     }
- */
+    cout << "Enter blocks size: ";
+    for (int i = 0; i < b; i++)
+    {
+        cin >> block[i];
+    }
 
-    int process[] = {100, 500, 200, 300, 600};
-    int block[] = {200, 400, 300, 250, 150};
-    int p = sizeof(process) / sizeof(process[0]);
-    int b = sizeof(block) / sizeof(block[0]);
+    int choice;
+    do
+    {
+        cout << "\nMenu:\n";
+        cout << "1. First Fit Allocation\n";
+        cout << "2. Best Fit Allocation\n";
+        cout << "3. Worst Fit Allocation\n";
+        cout << "4. Next Fit Allocation\n";
+        cout << "5. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
 
-    cout << "First fit allocation\n";
-    firstFit(process, block, p, b);
+        switch (choice)
+        {
+        case 1:
+            cout << "First fit allocation\n";
+            firstFit(process, block, p, b);
+            break;
+        case 2:
+            cout << "Best Fit Allocation\n";
+            bestFit(process, block, p, b);
+            break;
+        case 3:
+            cout << "Worst Fit Allocation\n";
+            worstFit(process, block, p, b);
+            break;
+        case 4:
+            cout << "Next Fit Allocation\n";
+            nextFit(process, block, p, b);
+            break;
+        case 5:
+            cout << "Exiting...\n";
+            break;
+        default:
+            cout << "Invalid choice. Please enter a valid option.\n";
+        }
+    } while (choice != 5);
 
-    cout << "Best Fit Allocation\n";
-    bestFit(process, block, p, b);
-
-    cout << "Worst Fit Allocation\n";
-    worstFit(process, block, p, b);
-
-    cout << "Next Fit Allocation\n";
-    nextFit(process, block, p, b);
+    return 0;
 }

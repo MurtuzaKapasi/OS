@@ -8,39 +8,39 @@ using namespace std;
 #define MAX_TRACKS 10000
 
 // Function to sort array in ascending order
-void bubbleSort(vector<int>& arr)
-{
-    int n = arr.size();
-    for (int i = 0; i < n - 1; i++)
-    {
-        for (int j = 0; j < n - i - 1; j++)
-        {
-            if (arr[j] > arr[j + 1])
-            {
-                int temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
-            }
-        }
-    }
-}
+// void bubbleSort(vector<int>& arr)
+// {
+//     int n = arr.size();
+//     for (int i = 0; i < n - 1; i++)
+//     {
+//         for (int j = 0; j < n - i - 1; j++)
+//         {
+//             if (arr[j] > arr[j + 1])
+//             {
+//                 int temp = arr[j];
+//                 arr[j] = arr[j + 1];
+//                 arr[j + 1] = temp;
+//             }
+//         }
+//     }
+// }
 
-// Function to find index of nearest track
-int findNearest(const vector<int>& tracks, int head)
-{
-    int minDist = abs(tracks[0] - head);
-    int index = 0;
-    for (int i = 1; i < tracks.size(); i++)
-    {
-        int dist = abs(tracks[i] - head);
-        if (dist < minDist)
-        {
-            minDist = dist;
-            index = i;
-        }
-    }
-    return index;
-}
+// // Function to find index of nearest track
+// int findNearest(const vector<int>& tracks, int head)
+// {
+//     int minDist = abs(tracks[0] - head);
+//     int index = 0;
+//     for (int i = 1; i < tracks.size(); i++)
+//     {
+//         int dist = abs(tracks[i] - head);
+//         if (dist < minDist)
+//         {
+//             minDist = dist;
+//             index = i;
+//         }
+//     }
+//     return index;
+// }
 
 // Function to implement FIFO scheduling algorithm
 void fifo(const vector<int>& requests, int head)
