@@ -132,6 +132,7 @@ int main()
 {
     vector<int> requests;
     int n, head, maxTrack;
+    int choice;
     
     // Input number of requests
     cout << "Enter the number of disk requests: ";
@@ -154,10 +155,33 @@ int main()
     cout << "Enter the maximum track number: ";
     cin >> maxTrack;
 
-    fifo(requests, head);
-    sstf(requests, head);
-    scan(requests, head, maxTrack);
-    cscan(requests, head, maxTrack);
+    // Menu
+    cout << "Select Scheduling Algorithm:" << endl;
+    cout << "1. FIFO" << endl;
+    cout << "2. SSTF" << endl;
+    cout << "3. SCAN" << endl;
+    cout << "4. C-SCAN" << endl;
+    cout << "Enter your choice: ";
+    cin >> choice;
+
+    // Perform selected scheduling algorithm
+    switch (choice)
+    {
+        case 1:
+            fifo(requests, head);
+            break;
+        case 2:
+            sstf(requests, head);
+            break;
+        case 3:
+            scan(requests, head, maxTrack);
+            break;
+        case 4:
+            cscan(requests, head, maxTrack);
+            break;
+        default:
+            cout << "Invalid choice!" << endl;
+    }
 
     return 0;
 }
