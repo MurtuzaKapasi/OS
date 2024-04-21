@@ -133,55 +133,65 @@ int main()
     vector<int> requests;
     int n, head, maxTrack;
     int choice;
+    char repeat;
     
-    // Input number of requests
-    cout << "Enter the number of disk requests: ";
-    cin >> n;
+    do {
+        // Input number of requests
+        cout << "Enter the number of disk requests: ";
+        cin >> n;
 
-    // Input disk requests
-    cout << "Enter the disk requests: ";
-    for (int i = 0; i < n; i++)
-    {
-        int request;
-        cin >> request;
-        requests.push_back(request);
-    }
+        // Input disk requests
+        cout << "Enter the disk requests: ";
+        for (int i = 0; i < n; i++)
+        {
+            int request;
+            cin >> request;
+            requests.push_back(request);
+        }
 
-    // Input current head position
-    cout << "Enter the current head position: ";
-    cin >> head;
+        // Input current head position
+        cout << "Enter the current head position: ";
+        cin >> head;
 
-    // Input maximum track number
-    cout << "Enter the maximum track number: ";
-    cin >> maxTrack;
+        // Input maximum track number
+        cout << "Enter the maximum track number: ";
+        cin >> maxTrack;
 
-    // Menu
-    cout << "Select Scheduling Algorithm:" << endl;
-    cout << "1. FIFO" << endl;
-    cout << "2. SSTF" << endl;
-    cout << "3. SCAN" << endl;
-    cout << "4. C-SCAN" << endl;
-    cout << "Enter your choice: ";
-    cin >> choice;
+        // Menu
+        cout << "Select Scheduling Algorithm:" << endl;
+        cout << "1. FIFO" << endl;
+        cout << "2. SSTF" << endl;
+        cout << "3. SCAN" << endl;
+        cout << "4. C-SCAN" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
 
-    // Perform selected scheduling algorithm
-    switch (choice)
-    {
-        case 1:
-            fifo(requests, head);
-            break;
-        case 2:
-            sstf(requests, head);
-            break;
-        case 3:
-            scan(requests, head, maxTrack);
-            break;
-        case 4:
-            cscan(requests, head, maxTrack);
-            break;
-        default:
-            cout << "Invalid choice!" << endl;
-    }
+        // Perform selected scheduling algorithm
+        switch (choice)
+        {
+            case 1:
+                fifo(requests, head);
+                break;
+            case 2:
+                sstf(requests, head);
+                break;
+            case 3:
+                scan(requests, head, maxTrack);
+                break;
+            case 4:
+                cscan(requests, head, maxTrack);
+                break;
+            default:
+                cout << "Invalid choice!" << endl;
+        }
+
+        // Clear requests vector for next iteration
+        requests.clear();
+
+        // Ask user if they want to repeat
+        cout << "Do you want to perform another scheduling (y/n)? ";
+        cin >> repeat;
+    } while (repeat == 'y' || repeat == 'Y');
 
     return 0;
 }
